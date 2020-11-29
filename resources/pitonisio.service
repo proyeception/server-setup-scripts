@@ -4,7 +4,7 @@ Description=pitonisio
 [Service]
 ExecStart=/usr/bin/python3 main.py
 # Required on some systems
-WorkingDirectory=WORKING_DIR/pitonisio
+WorkingDirectory=%%WORKING_DIR%%/pitonisio
 Restart=always
 # Restart service after 10 seconds if node service crashes
 RestartSec=10
