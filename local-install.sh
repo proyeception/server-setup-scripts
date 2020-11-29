@@ -6,7 +6,7 @@ then
   exit -1
 fi
 
-DIR= pwd $1
+DIR= $1
 
 bash dbserver.sh
 bash appserver.sh $DIR 

@@ -6,8 +6,13 @@ then
   exit -1
 fi
 
-DIR= pwd $1
-sed -i "s/%%WORKING_DIR%%/$DIR/g" ./resources/benito.service
+CURRENT_DIR=$PWD
+TARGET_DIR=$1;
+cd $TARGET_DIR
+TARGET_DIR=$PWD
+cd $CURRENT_DIR
+
+sed -i "s|%%WORKING_DIR%%|$TARGET_DIR|g" ./resources/benito.service
 
 apt-get update
 apt-get -y install -y openjdk-8-jdk
@@ -16,18 +21,18 @@ apt-get -y install -y nodejs
 apt install -y npm
 npm i -g npm
 
-git clone https://github.com/proyeception/benito ../
+git clone https://github.com/proyeception/benito $TARGET_DIR
 
 mkdir /var/log
 mkdir /var/log/benito
 
-cp ./resources/application.conf ../benito/benito-backend/environments/prod/
-cp ./resources/sensitive.conf ../benito/benito-backend/src/main/resources
+cp ./resources/application.conf $TARGET_DIR/benito/benito-backend/environments/prod/
+cp ./resources/sensitive.conf $TARGET_DIR/benito/benito-backend/src/main/resources
 cp ./resources/benito.service /lib/systemd/system/
 
-cd ../benito
+cd $TARGET_DIR
 
-bash build prod
+bash benito/build prod
 
 systemctl start benito
 systemctl enable benito
