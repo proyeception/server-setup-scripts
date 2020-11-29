@@ -8,6 +8,5 @@ fi
 
 DIR= $1
 
-bash dbserver.sh
 bash appserver.sh $DIR 
 bash webserver.sh $DIR

@@ -28,8 +28,8 @@ apt install -y python3.8
 apt install -y python3-pip
 apt-get install libc6-dev
 
-git clone https://github.com/proyeception/pitonisio $TARGET_DIR
-git clone https://github.com/proyeception/medusa .$TARGET_DIR
+git clone https://github.com/proyeception/pitonisio $TARGET_DIR/pitonisio
+git clone https://github.com/proyeception/medusa $TARGET_DIR/medusa
 
 cd $TARGET_DIR/pitonisio
 CFLAGS="-Wno-narrowing" pip3 install cld2-cffi

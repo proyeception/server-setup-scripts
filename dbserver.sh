@@ -4,12 +4,3 @@ apt-get update
 apt-get install -y mongodb-org
 systemctl start mongod
 systemctl enable mongod
-
-db.createUser(
-  {
-    user: "medusa",
-    pwd: "pasguord", 
-    roles: ["readWrite"]
-  }
-)
-db.createUser({ user: "medusa" , pwd: "pasguord", roles: ["userAdminAnyDatabase", "dbAdminAnyDatabase", "readWriteAnyDatabase"]})

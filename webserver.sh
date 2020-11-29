@@ -16,12 +16,13 @@ sed -i "s|%%WORKING_DIR%%|$TARGET_DIR|g" ./resources/benito.service
 
 apt-get update
 apt-get -y install -y openjdk-8-jdk
+apt-get -y install maven
 curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
 apt-get -y install -y nodejs
 apt install -y npm
 npm i -g npm
 
-git clone https://github.com/proyeception/benito $TARGET_DIR
+git clone https://github.com/proyeception/benito $TARGET_DIR/benito
 
 mkdir /var/log
 mkdir /var/log/benito
