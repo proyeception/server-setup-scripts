@@ -28,6 +28,7 @@ mkdir /var/log/benito
 
 cp ./resources/application.conf $TARGET_DIR/benito/benito-backend/environments/prod/
 cp ./resources/sensitive.conf $TARGET_DIR/benito/benito-backend/src/main/resources
+cp ./resources/config.ts $TARGET_DIR/benito/benito-frontend/environments/prod/
 cp ./resources/benito.service /lib/systemd/system/
 
 cd $TARGET_DIR
