@@ -1,17 +1,19 @@
 [Unit]
-Description=Medusa
+Description=pitonisio
 
 [Service]
-ExecStart=/usr/bin/npm start
+ExecStart=/usr/bin/python3 main.py
 # Required on some systems
-WorkingDirectory=/root/medusa
+WorkingDirectory=WORKING_DIR/pitonisio
 Restart=always
 # Restart service after 10 seconds if node service crashes
 RestartSec=10
-# Output to syslog
-StandardOutput=syslog
-StandardError=syslog
-SyslogIdentifier=medusa
+# Output to custom log
+StandardOutput=file:/var/log/pitonisio/pitonisio.log
+StandardError=file:/var/log/pitonisio/pitonisio.log
+SyslogIdentifier=pitonisio
+#forking type
+Type=simple
 
 [Install]
 WantedBy=multi-user.target

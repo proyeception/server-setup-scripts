@@ -4,14 +4,16 @@ Description=Medusa
 [Service]
 ExecStart=/usr/bin/npm start
 # Required on some systems
-WorkingDirectory=/root/medusa
+WorkingDirectory=%%WORKING_DIR%%/medusa
 Restart=always
 # Restart service after 10 seconds if node service crashes
 RestartSec=10
-# Output to syslog
-StandardOutput=syslog
-StandardError=syslog
+# Output to custom logger
+StandardOutput=file:/var/log/medusa/medusa.log
+StandardError=file:/var/log/medusa/medusa.log
 SyslogIdentifier=medusa
+#fork
+Type=simple
 
 [Install]
 WantedBy=multi-user.target

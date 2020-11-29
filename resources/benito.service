@@ -2,16 +2,18 @@
 Description=Medusa
 
 [Service]
-ExecStart=/usr/bin/npm start
+ExecStart=/usr/bin/java -Dspring.config.location=benito/benito-backend/environments/prod/application.properties -Dconfig.file=benito/benito-backend/environments/prod/application.conf -Dlogback.configurationFile=benito/benito-backend/environments/prod/logback.xml -Dspring.profiles.active=prod -jar benito/benito-backend/target/benito.jar
 # Required on some systems
-WorkingDirectory=/root/medusa
+WorkingDirectory=%%WORKING_DIR%%
 Restart=always
 # Restart service after 10 seconds if node service crashes
 RestartSec=10
-# Output to syslog
-StandardOutput=syslog
-StandardError=syslog
-SyslogIdentifier=medusa
+# Output to custom log
+StandardOutput=file:/var/log/benito/benito.log
+StandardError=file:/var/log/benito/benito.log
+SyslogIdentifier=benito
+#forking type
+Type=simple
 
 [Install]
 WantedBy=multi-user.target

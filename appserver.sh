@@ -1,3 +1,15 @@
+#!/bin/bash
+
+if [ $# -eq 0 ]
+then
+  echo "Usage: ./appserver <dir>"
+  exit -1
+fi
+
+DIR= pwd $1
+sed -i "s/%%WORKING_DIR%%/$DIR/g" ./resources/medusa.service
+sed -i "s/%%WORKING_DIR%%/$DIR/g" ./resources/pitonisio.service
+
 apt-get update
 curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
 apt-get -y install -y nodejs
@@ -10,21 +22,24 @@ apt install -y python3.8
 apt install -y python3-pip
 apt-get install libc6-dev
 
-git clone https://github.com/proyeception/pitonisio
-git clone https://github.com/proyeception/medusa
+git clone https://github.com/proyeception/pitonisio ../
+git clone https://github.com/proyeception/medusa ../
 
-cd pitonisio
+cd ../pitonisio
 CFLAGS="-Wno-narrowing" pip3 install cld2-cffi
 pip3 install -r requirements.txt
 
 cd ../medusa
 npm i
 
-DATABASE_USERNAME=medusa
-DATABASE_PASSWORD=pasguord
-DATABASE_SRV=false
-DATABASE_HOST=10.116.0.4
-DATABASE_PORT=27017
-DATABASE_NAME=proyectate
-SUPERVISOR_LOGIN_URL=http://localhost:8080/supervisor/login
-AUTHORIZATION_TOKENS=["CpZX0UuC3n?XZ!IGv36VBQbD1H#r&pVMD*UdaGZxdGM!PTqDPX"]
+mkdir /var/log
+mkdir /var/log/medusa
+mkdir /var/log/pitonisio
+
+cp ./resources/medusa.service /lib/systemd/system
+cp ./resources/pitonisio.service /lib/systemd/system
+
+systemctl start pitonisio
+systemctl start medusa
+systemctl enable pitonisio
+systemctl enable medusa
